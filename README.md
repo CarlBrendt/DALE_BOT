@@ -16,7 +16,7 @@
       - потом **git config --global user.email ваш_email.com** <br>
 5. Теперь пишем следующее **git clone https://github.com/People-state/DALE_BOT.git** <br>
 
-## 2. Установка и запуск heroku
+## 2. Установка и запуск heroku \ Обновление и добавление файлов в приложение
 Для работы с этим ботом вам **не нужно** создавать новое веб-приложение на HEROKU. Работаем в том же терминале <br>
 ### Поэтому следуйте этим шагам:
 1. Установите приложение Heroku по ссылке https://devcenter.heroku.com/articles/heroku-cli (установка по умолчанию) <br>
