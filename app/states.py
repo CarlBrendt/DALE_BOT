@@ -1,6 +1,6 @@
 from aiogram.fsm.state import StatesGroup, State
 
-# класс ответов пользователей
+# класс ответов пользователей ДЛЯ КОНСТРУКТОРА ОПИСАНИЯ
 class UserState(StatesGroup):
 
     last_question = State() # последний вопрос пользователю для возвращения после выбора status
@@ -9,7 +9,9 @@ class UserState(StatesGroup):
     waiting_for_room_count = State() # ручной ввод числа комнат
     renovation_status = State() # есть ли отделка
     style = State() # стиль квартиры
+    info_about_renovation = State() # описание ремонта кварртиры, стен, мебели
     kitchen_living_room = State() # совмещена ли кухня с гостинной
+    info_about_kitchen_living_room = State() # информация о деталях кухни и гостиной
     number_of_closet = State() # количество санузлов
     waiting_for_closet_count = State() # ждем когда пользователь введет количество туалетов
     number_of_bedrooms = State() # количество спален в квартире
@@ -38,3 +40,11 @@ class UserState(StatesGroup):
     flat_text = State() # описание квартиры
     description_ready = State() # описание квартиры готово
     
+    changing_parameters = State() 
+    awaiting_new_value = State()
+    to_change_parametrs = State()
+    
+class Balance(StatesGroup):
+    topping_up_balance = State() # Пополняет ли сейчас баланс lf или нет
+    enough_balance = State() # Хватает ли денег да или нет
+    check_balance = State()

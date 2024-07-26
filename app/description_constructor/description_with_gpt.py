@@ -12,7 +12,7 @@ async def create_unique_description_of_building(info_about_building, extra_info)
     
     # пользователь может передать как ссылку на жк
     # так и информацию введнную вручную, потому что на циане может не быть информации
-    url_pattern = r'^https:\/\/[\w-]+\.cian\.ru\/$'
+    url_pattern = r'^https:\/\/[\w-]+\.cian\.ru.*$'
     if re.match(url_pattern, info_about_building):
         text = await get_all_info_from_link(info_about_building)
         text = f"{text} , ОБЯЗАТЕЛЬНО УЧЕСТЬ В ОПИСАНИИ{extra_info}"
@@ -21,6 +21,7 @@ async def create_unique_description_of_building(info_about_building, extra_info)
         text = f"{text} , ОБЯЗАТЕЛЬНО УЧЕСТЬ В ОПИСАНИИ{extra_info}"
         
     unique_text = await get_chatgpt_response(SYSTEM_PROMPT_HOUSE, text)
+    print(unique_text)
     return unique_text
 
 async def create_description_of_flat(info_about_flat, jk_info):
@@ -30,4 +31,4 @@ async def create_description_of_flat(info_about_flat, jk_info):
     return flat_text
 
 if __name__ == "__main__":
-    asyncio.run(create_unique_description_of_building('https://zhk-skyview-i.cian.ru/'))
+    asyncio.run(create_unique_description_of_building('https://zhk-eniteo-i.cian.ru/'))

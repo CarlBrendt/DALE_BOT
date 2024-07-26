@@ -43,7 +43,7 @@ async def get_all_info_from_link(link):
 # Asynchronous main function to run the async task
 async def main():
     
-    link = "https://zhk-skyview-i.cian.ru/"
+    link = "https://zhk-eniteo-i.cian.ru/"
     text = await get_all_info_from_link(link)
     print(text)
 

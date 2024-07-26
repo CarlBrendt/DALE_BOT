@@ -32,16 +32,34 @@ class Custom_Keyboard:
 
         return keyboard_reply_builder.adjust(2).as_markup(resize_keyboard=True)
 
-    async def stay_reload_function(self) -> InlineKeyboardMarkup:
-        
-        # Клавиатура для того чтобы выбирать что делать с постом Циан
-        stay_reload_keyboard = InlineKeyboardMarkup(
+    # Клавиатура чтобы пополнить баланс или оставить
+    async def upprove_balance(self) -> InlineKeyboardMarkup:
+        balance_keyboard = InlineKeyboardMarkup(
             inline_keyboard=[
-                [InlineKeyboardButton(text='Оставить это описание', callback_data='stay')],
-                [InlineKeyboardButton(text='Рерайт описания с теми же данными', callback_data='reload')]
+                [InlineKeyboardButton(text='💰 Пополнить баланс', callback_data='yes_balance')],
+                [InlineKeyboardButton(text='❌ Пополнить позже', callback_data='no_balance')],
             ]
         )
-        return stay_reload_keyboard
+        return balance_keyboard
+    
+    # Клавиатура на количество пополнения баланса
+    async def amount_of_top_up(self) -> InlineKeyboardMarkup:
+        balance_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='💰 100 рублей', callback_data='100_rub')],
+                [InlineKeyboardButton(text='💰 150 рублей', callback_data='150_rub')],
+                [InlineKeyboardButton(text='💰 500 рублей', callback_data='500_rub')],
+                [InlineKeyboardButton(text='❌ Пополнить позже', callback_data='later')]
+            ]
+        )
+        return balance_keyboard
+    
+    
+    async def balance_options(self):
+        keyboard = InlineKeyboardMarkup()
+        keyboard.add(InlineKeyboardButton("Пополнить на 50 рублей", callback_data="top_up_50"))
+        keyboard.add(InlineKeyboardButton("Пополнить на 100 рублей", callback_data="top_up_100"))
+        return keyboard
     
     async def go_back_to_description_keyboard(self) -> InlineKeyboardMarkup:
         
@@ -107,7 +125,7 @@ class Custom_Keyboard:
 
     async def agree_keyboard(self) -> InlineKeyboardMarkup:
         agree_keyboard = InlineKeyboardMarkup(
-            inline_keyboard=[[InlineKeyboardButton(text='Хорошо', callback_data='I_agree')]])
+            inline_keyboard=[[InlineKeyboardButton(text='Далее', callback_data='I_agree')]])
         return agree_keyboard
     
     # Клавиатура чтобы выбрать количество спален во всей квартире
@@ -179,6 +197,153 @@ class Custom_Keyboard:
                     [InlineKeyboardButton(text='Назад', callback_data='jk_back')]
                 ]
             )
+        return select_keyboard
+    
+    # Клавиатура чтобы сгенерировать описание
+    async def generate_description(self) -> InlineKeyboardMarkup:
+        keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='💰 5 руб.', callback_data='generate_description')],
+            ]
+        )
+        return keyboard
+    
+    async def stay_reload_function(self) -> InlineKeyboardMarkup:
+        select_keyboard = InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [InlineKeyboardButton(text='Rewrite с теми же данными - 💰 3 руб (первые 3 бесплатно)', callback_data='reload')],
+                    [InlineKeyboardButton(text='Оставить так', callback_data='stay')],
+                ]
+            )
+        return select_keyboard
+    
+    async def change_parametrs(self) -> InlineKeyboardMarkup:
+        select_keyboard = InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [InlineKeyboardButton(text='Да, я хотел бы изменить некоторые параметры', callback_data='yes_change')],
+                    [InlineKeyboardButton(text='Нет, не хочу менять', callback_data='no_change')],
+                ]
+            )
+        return select_keyboard
+    
+    async def change_parameters_keyboard(self) -> InlineKeyboardMarkup:
+        select_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='Количество комнат', callback_data='change_rooms')],
+                [InlineKeyboardButton(text='Отделка квартиры', callback_data='change_renovation')],
+                [InlineKeyboardButton(text='Стиль/ремонт квартиры', callback_data='change_style')],
+                [InlineKeyboardButton(text='Совместимость кухни и гостиной', callback_data='change_kitchen')],
+                [InlineKeyboardButton(text='Количество санузлов в квартире', callback_data='change_closet')],
+                [InlineKeyboardButton(text='Количество спален в квартире', callback_data='change_bedrooms')],
+                [InlineKeyboardButton(text='Санузел в спальне', callback_data='change_bedroom_wc')],
+                [InlineKeyboardButton(text='Тип спальни', callback_data='change_bedroom_type')],
+                [InlineKeyboardButton(text='Вид из спальни', callback_data='change_bedroom_view')],
+                [InlineKeyboardButton(text='Вид из квартиры', callback_data='change_flat_view')],
+                [InlineKeyboardButton(text='Площадь квартиры', callback_data='change_flat_area')],
+                [InlineKeyboardButton(text='Изменить цену (Валюта не меняется)', callback_data='change_price')],
+                [InlineKeyboardButton(text='Изменить достоинства квартиры', callback_data='change_flat_details')],
+                [InlineKeyboardButton(text='Дополнительные комнаты', callback_data='change_extra_rooms')],
+                [InlineKeyboardButton(text='ЖК с Циан / Дом', callback_data='change_jk_info')],
+                [InlineKeyboardButton(text='Обязательная информация о квартире', callback_data='change_flat_extra_info')],
+                [InlineKeyboardButton(text='Условия сделки', callback_data='change_deal_term')],
+                [InlineKeyboardButton(text='Назад', callback_data='change_back')]
+            ]
+        )
+        return select_keyboard
+
+    async def change_parameters_keyboard_one(self):
+        select_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='Количество комнат', callback_data='change_rooms')],
+                [InlineKeyboardButton(text='Отделка квартиры', callback_data='change_renovation')],
+                [InlineKeyboardButton(text='Стиль/ремонт квартиры', callback_data='change_style')],
+                [InlineKeyboardButton(text='Совместимость кухни и гостиной', callback_data='change_kitchen')],
+                [InlineKeyboardButton(text='Далее', callback_data='next_one')],
+                [InlineKeyboardButton(text='К генерации описания', callback_data='change_back')]
+            ])
+            
+        return select_keyboard
+    
+    async def change_parameters_keyboard_two(self):
+        select_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='Ремонт в квартире', callback_data='change_info_renovation')],
+                [InlineKeyboardButton(text='ИНформацияо кухне/гостиной', callback_data='change_info_kitchen_living_room')],
+                [InlineKeyboardButton(text='Количество санузлов в квартире', callback_data='change_closet')],
+                [InlineKeyboardButton(text='Количество спален в квартире', callback_data='change_bedrooms')],
+                [InlineKeyboardButton(text='Далее', callback_data='next_two')],
+                [InlineKeyboardButton(text='Назад', callback_data='change_back_two')]
+            ])
+            
+        return select_keyboard
+
+    async def change_parameters_keyboard_three(self):
+        select_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                
+                [InlineKeyboardButton(text='Вид из квартиры', callback_data='change_flat_view')],
+                [InlineKeyboardButton(text='Площадь квартиры', callback_data='change_flat_area')],
+                [InlineKeyboardButton(text='Изменить цену (Валюта не меняется)', callback_data='change_price')],
+                [InlineKeyboardButton(text='Изменить достоинства квартиры', callback_data='change_flat_details')],
+                
+                [InlineKeyboardButton(text='Далее', callback_data='next_three')],
+                [InlineKeyboardButton(text='Назад', callback_data='change_back_three')]
+            ])
+            
+        return select_keyboard
+    
+    async def change_parameters_keyboard_four(self):
+        select_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='Дополнительные комнаты', callback_data='change_extra_rooms')],
+                [InlineKeyboardButton(text='Обязательная информация о квартире', callback_data='change_flat_extra_info')],
+                [InlineKeyboardButton(text='Обязательная информация о ЖК/доме', callback_data= 'change_jk_extra_info')],
+                [InlineKeyboardButton(text='Условия сделки', callback_data='change_deal_term')],
+                [InlineKeyboardButton(text='Назад', callback_data='change_back_four')]
+            ])
+            
+        return select_keyboard
+    
+    async def support_keyboard_chose(self) -> ReplyKeyboardMarkup:
+        """
+        Функция для построения кнопок в зависимости от уровня доступа
+        """
+        keyboard_reply_builder = ReplyKeyboardBuilder()
+        keyboard_constructor = ['📨 Тех.поддержка / QA', '📚 Про нас / Вакансии', 'Вернуться к основным разделам']
+
+        for button in keyboard_constructor:
+            keyboard_reply_builder.add(KeyboardButton(text=button))
+
+        return keyboard_reply_builder.adjust(2).as_markup(resize_keyboard=True)
+    
+    async def support_variant(self):
+        select_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='📲 Q/A с Разработчиком', callback_data='developer_qa')],
+                [InlineKeyboardButton(text='📲 Q/A c Руководителем', callback_data='seo_qa')],
+
+            ])
+            
+        return select_keyboard
+    
+    async def support_options_developer(self):
+        select_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='❓ Задать вопрос', callback_data='question')],
+                [InlineKeyboardButton(text='💡 Поделиться идеей или улучшением', callback_data='idea')],
+                [InlineKeyboardButton(text='Назад', callback_data='support_back')],
+            ])
+            
+        return select_keyboard
+    
+    async def support_options_seo(self):
+        select_keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text='❓ Задать вопрос', callback_data='question_seo')],
+                [InlineKeyboardButton(text='💡 Поделиться идеей или улучшением', callback_data='idea_seo')],
+                [InlineKeyboardButton(text='Назад', callback_data='support_back_seo')],
+            ])
+            
         return select_keyboard
     
 if __name__ == "__main__":
