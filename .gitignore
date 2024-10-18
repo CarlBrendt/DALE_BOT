@@ -3,3 +3,4 @@ myenv/
 all_config/__pycache__/
 app/__pycache__/
 keyboard/__pycache__/
+.env
