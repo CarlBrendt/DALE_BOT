@@ -1,0 +1,13 @@
+libdrm2
+libgbm1
+libasound2
+libatk-bridge2.0-0
+libcups2
+libxcomposite1
+libxdamage1
+libxrandr2
+libgbm1
+libgtk-3-0
+libx11-xcb1
+libxkbcommon0
+libxshmfence1
